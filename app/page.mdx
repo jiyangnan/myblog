@@ -45,43 +45,71 @@
           </div>
         </div>
 
-        <div className="flex items-center gap-6 md:justify-end">
-          <div className="grid grid-cols-3 gap-3 w-auto md:w-40">
-            <div className="social-mini-box group cursor-pointer" id="connect">
-              <div className="aspect-square bg-white border border-zinc-100 rounded-lg p-1.5 shadow-sm">
-                <img
-                  src="/images/wechat-personal.jpg"
-                  alt="个人微信二维码"
-                  className="w-full h-full object-cover opacity-30 group-hover:opacity-100"
-                />
+        <div className="md:justify-end" id="connect">
+          <div className="rounded-[2rem] border border-zinc-100 bg-white shadow-sm p-6 md:p-8">
+            <div className="flex items-center justify-between mb-6">
+              <div className="text-[9px] text-zinc-300 font-mono leading-tight tracking-widest uppercase">
+                Social
+                <br />
+                Profiles
+              </div>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-bold">
+                Connect
               </div>
             </div>
-            <div className="social-mini-box group cursor-pointer">
-              <div className="aspect-square bg-white border border-zinc-100 rounded-lg p-1.5 shadow-sm">
-                <img
-                  src="/images/wechat-public.jpg"
-                  alt="公众号二维码"
-                  className="w-full h-full object-cover opacity-30 group-hover:opacity-100"
-                />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="social-mini-box group cursor-pointer">
+                <div className="aspect-square bg-white border border-zinc-100 rounded-2xl p-2 shadow-sm">
+                  <img
+                    src="/images/wechat-personal.jpg"
+                    alt="个人微信二维码"
+                    className="w-full h-full object-cover rounded-xl opacity-30 group-hover:opacity-100"
+                  />
+                </div>
+                <div className="mt-3 text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-bold">
+                  WeChat
+                </div>
               </div>
+              <div className="social-mini-box group cursor-pointer">
+                <div className="aspect-square bg-white border border-zinc-100 rounded-2xl p-2 shadow-sm">
+                  <img
+                    src="/images/wechat-public.jpg"
+                    alt="公众号二维码"
+                    className="w-full h-full object-cover rounded-xl opacity-30 group-hover:opacity-100"
+                  />
+                </div>
+                <div className="mt-3 text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-bold">
+                  Official
+                </div>
+              </div>
+              <div className="social-mini-box group cursor-pointer">
+                <div className="aspect-square bg-white border border-zinc-100 rounded-2xl p-2 shadow-sm">
+                  <img
+                    src="/images/jike.jpg"
+                    alt="即刻二维码"
+                    className="w-full h-full object-cover rounded-xl opacity-30 group-hover:opacity-100"
+                  />
+                </div>
+                <div className="mt-3 text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-bold">
+                  Jike
+                </div>
+              </div>
+              <a
+                href="https://x.com/Aries_warrior_f"
+                target="_blank"
+                rel="noreferrer"
+                className="social-mini-box group cursor-pointer block"
+              >
+                <div className="aspect-square bg-zinc-900 rounded-2xl p-4 shadow-sm flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                  </svg>
+                </div>
+                <div className="mt-3 text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-bold">
+                  Twitter
+                </div>
+              </a>
             </div>
-            <a
-              href="https://x.com/Aries_warrior_f"
-              target="_blank"
-              rel="noreferrer"
-              className="social-mini-box group cursor-pointer block"
-            >
-              <div className="aspect-square bg-zinc-900 rounded-lg p-2 shadow-sm flex items-center justify-center">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="white">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-                </svg>
-              </div>
-            </a>
-          </div>
-          <div className="text-[9px] text-zinc-300 font-mono leading-tight tracking-widest uppercase border-l border-zinc-100 pl-4">
-            Social
-            <br />
-            Profiles
           </div>
         </div>
       </div>
