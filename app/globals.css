@@ -149,6 +149,14 @@ table {
   transform: scale(1.05);
 }
 
+/* Social card hover */
+.social-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.social-card:hover {
+  transform: translateY(-2px);
+}
+
 /* Bottom mask for scroll area */
 .scroll-mask {
   position: absolute;

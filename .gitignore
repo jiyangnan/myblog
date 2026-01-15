@@ -26,6 +26,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# local reference files
+ai_studio_code.html
+
 # local env files
 .env*.local
 
