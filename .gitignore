@@ -28,6 +28,7 @@ yarn-error.log*
 
 # local reference files
 ai_studio_code.html
+article_demo.html
 
 # local env files
 .env*.local

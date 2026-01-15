@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Noto_Serif_SC } from 'next/font/google';
+import { Inter, Noto_Serif_SC, JetBrains_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({
@@ -11,6 +11,10 @@ const notoSerif = Noto_Serif_SC({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-serif'
+});
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono'
 });
 
 export const metadata: Metadata = {
@@ -32,7 +36,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" className={`${inter.variable} ${notoSerif.variable}`}>
+    <html
+      lang="zh-CN"
+      className={`${inter.variable} ${notoSerif.variable} ${jetBrainsMono.variable}`}
+    >
       <body className="antialiased font-sans tracking-tight bg-[#fcfcfc] text-[#1a1a1a] selection:bg-amber-50">
         {children}
         <Analytics />

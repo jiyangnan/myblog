@@ -113,6 +113,76 @@ table {
   text-align: left;
 }
 
+.article-content p {
+  margin-bottom: 2rem;
+  line-height: 1.8;
+  color: #374151;
+  font-size: 1.1rem;
+}
+
+.article-content h1 {
+  font-family: var(--font-serif), 'Noto Serif SC', serif;
+  font-size: 2.75rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 2rem;
+}
+
+.article-content h2 {
+  font-family: var(--font-serif), 'Noto Serif SC', serif;
+  font-size: 1.8rem;
+  margin-top: 3.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.article-content h3 {
+  font-family: var(--font-serif), 'Noto Serif SC', serif;
+  font-size: 1.35rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.article-content blockquote {
+  font-family: var(--font-serif), 'Noto Serif SC', serif;
+  font-style: italic;
+  border-left: 3px solid #b45309;
+  padding-left: 1.5rem;
+  margin: 3rem 0;
+  font-size: 1.25rem;
+  color: #4b5563;
+}
+
+.article-content img {
+  border-radius: 1rem;
+  margin: 3rem 0;
+  width: 100%;
+  border: 1px solid #f4f4f5;
+}
+
+.article-content code {
+  font-family: var(--font-mono), 'JetBrains Mono', 'Menlo', 'Monaco',
+    'Courier New', monospace;
+  background: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+.article-content pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  overflow-x: auto;
+  line-height: 1.7;
+  margin: 2rem 0 3rem;
+}
+
 /* Scroll container with visible but subtle scrollbar */
 .no-scrollbar::-webkit-scrollbar {
   width: 4px;
