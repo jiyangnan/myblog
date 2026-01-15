@@ -1,0 +1,148 @@
+export const metadata = {
+  title: 'OpenCode 手把手傻瓜式配置 - Claude Code 最强平替！',
+  alternates: {
+    canonical: '/n/6'
+  }
+};
+
+# OpenCode 手把手傻瓜式配置 - Claude Code 最强平替！
+
+<div className="article-date">2026.01.12</div>
+
+还记得第一次从 Windows 换到 Linux，兴奋地折腾各种配置的感觉吗？在这个“黑客精神”似乎日渐稀缺的年代，OpenCode 把它带回来了。如果你热爱编程、热爱计算机，OpenCode 带来的就是那种“终于摆脱 Windows 束缚”的爽快感。
+
+## 📥 安装教程
+
+### 手动安装
+
+在终端输入：
+
+```
+npm i -g opencode-ai
+```
+
+安装好以后，输入 opencode 回车，就能看到界面。
+
+![OpenCode 安装完成](/images/opencode-install.png)
+
+直接在对话窗口输入 "/models" 就可以查看可用的一些内置的模型：
+
+![可用模型列表](/images/opencode-models.png)
+
+可以看到 GLM-4.7、MiniMax2.1 这些最新的模型都是可以免费使用的，真的太香了！
+
+![免费模型展示](/images/opencode-models-free.png)
+
+之前我还单独花了将近1000块钱购买了 GLM 4.7 的 Code Plan，简直是冤大头！
+
+![GLM 4.7 Code Plan](/images/opencode-glm-plan.png)
+
+好的，那就在 OpenCode 里边选用 GLM-4.7，然后测试一下：
+
+![OpenCode 运行 GLM-4.7](/images/opencode-glm-run.png)
+
+很棒！
+
+因为我一直是 ChatGPT 的 Plus 订阅用户，所以把模型改为 ChatGPT 试一下。
+
+![切换 ChatGPT 模型](/images/opencode-chatgpt.png)
+
+这时候会跳转到浏览器进行认证。
+
+![OpenAI 认证](/images/opencode-auth.png)
+
+认证完成后，页面就会自动进入到 OpenAI 的模型选择页面，这里我们选用最强的 Codex Max。
+
+![选择 Codex Max](/images/opencode-codex-max.png)
+
+然后用新的模型问一些问题可以看到，它会告诉你它在用了新的模型回答了你的相关问题：
+
+![模型回答标识](/images/opencode-model-answer.png)
+
+再来一个 Gemini。
+
+![Gemini 模型](/images/opencode-gemini.png)
+
+所以整个过程特别简单，对吧？但是话说回来，如果只是这么一个 coding agent，那和我直接用之前已有了的 Claude Code + CC 有什么不同呢？或者我为什么要从一个很强的 agent 里边，要切换到另外一个没有特别惊艳的 Agent 工具呢？
+
+**答案是：有的。**
+
+---
+
+## 安装最强 Agent 框架 Oh-My-Opencode
+
+Oh-My-Opencode 这个插件最近可是特别火，因为他太强了，有多强呢？我这么说吧，据说是作者烧了 2.4 万美元 Token 换来的 AI Agent 编程框架。
+
+装上这个，OpenCode 编程体验直接起飞。
+
+正如有人说的：使用完 OpenCode + oh-my-opencode 以后，再也不想用 Claude Code 了。
+
+![Oh-My-Opencode 效果](/images/opencode-ohmy.png)
+
+原因我也比较赞同，因为我是一个产品经理，之前受困于技术实现的效率，现在也出了很多相关的一些 Vibe coding tools，但是对于非技术人员而言，复杂的配置也会让人望而生畏，本来 Vibe coding 是为了让技术实现的鸿沟变浅，让更多非技术人员能够实现自己的想法和落地之间的桥梁，而本次 OpenCode + oh-my-opencode 配置完毕以后，**那些复杂的 skills、MCP、以及一些 sub agents 都不需要你去关心，它基本上都给你自带了！**
+
+而且最关键的是，像我这种订阅了不止一个模型的用户而言，直接可以把所有的订阅授权都给他，然后他就可以根据具体的任务实现需要自动地去调用不同的 sub agents 去使用我相关的模型，这真是物尽其用，一点不浪费！
+
+说句题外话，Anthropic 这家小气的公司最近反华以外，又收紧了对 OpenCode 的权限，准确来说是对任何三方调用他们模型的权限。有了这一套东西，就再也不用苦于 Claude Code + Opus 4.5 模型用不了的情况了！因为这一套下来，它的智能化程度基本上可以对齐 Claude Code + Opus 4.5 模型的编码能力了。
+
+OK，说了这么多，那么 oh-my-opencode 咋装呢？这种脏活累活让 LLM Agent 干。把这个链接复制粘贴到 opencode 会话里，让它自己动：
+
+```
+Install and configure by following the instructions here https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/refs/heads/master/README.md
+```
+
+很快安装完毕：
+
+![Oh-My-Opencode 安装完成](/images/opencode-ohmy-install.png)
+
+---
+
+# 开始玩吧！
+
+都知道 Cloud Skills 是目前很主流的让 Agent 执行任务的方式，但是我作为一个非技术玩家，不会写那么复杂的 Skill。老规矩，安装一个 Anthropic 官方能生成 Skills 的 Skills。
+
+直接对他说给我安装这个 skills：
+
+```
+给我安装这个skills : https://github.com/anthropics/skills/tree/main/skills/skill-creator
+```
+
+![安装 skill-creator](/images/opencode-skill-creator.png)
+
+![skill-creator 完成](/images/opencode-skill-creator-done.png)
+
+对了，顺带也把我之前这篇「我差点放弃了 Claude Code + Obsidian，直到我发现 CEO 亲自做的 Skills」文章提到的魔改 Obsidian 的 skill 也给我安装了：
+
+```
+https://github.com/jiyangnan/obsidian-skills.git 把这个仓库的 skill 也安装了
+```
+
+哦，还有，前几天看到了一个开源的 Skills，就是可以把本地草稿直接一键同步到 Twitter 上面的文章，一直也没有机会尝试，今天也试一下吧：X-article-publisher-skill。
+
+```
+把这个 skills 也安装了 https://github.com/wshuyi/x-article-publisher-skill
+```
+
+接下来就试一试这个 skill 吧：
+
+```
+把当前这篇文章发布到 Twitter(X)
+```
+
+![X 发布](/images/opencode-x-publish.png)
+
+Anthropic 官方 Skills 这些都是我之前一直在 Claude Code 中使用的，也推荐给大家！
+
+> https://github.com/anthropics/skills
+
+ComposioHQ 提供的 Awesome Skills 列表：
+
+> https://github.com/ComposioHQ/awesome-claude-skills/tree/master
+
+---
+
+以上就是全部。魔法杖已就位，新的时代也已到来。配置好这个魔法杖，让我们天马行空的想法变为现实！
+
+> 如果觉得不错，随手点个赞、在看、转发三连吧，如果想第一时间收到推送，也可以给我个星标⭐。我们，下次再见。
+>
+> 当然，欢迎加我个人微信：**aries_fighter**，一起**进群和其他同频道的朋友同频共振**，欢迎 AGI 时代的到来。也期待在今后的日子里能够与你有羁绊，这是种微妙的感觉。希望我的一些想法能对你有所帮助。
