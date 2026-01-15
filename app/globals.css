@@ -164,7 +164,11 @@ table {
   border: 1px solid #f4f4f5;
 }
 
-.article-content code {
+.article-content p code,
+.article-content li code,
+.article-content blockquote code,
+.article-content h2 code,
+.article-content h3 code {
   font-family: var(--font-mono), 'JetBrains Mono', 'Menlo', 'Monaco',
     'Courier New', monospace;
   background: #f3f4f6;
@@ -181,6 +185,12 @@ table {
   overflow-x: auto;
   line-height: 1.7;
   margin: 2rem 0 3rem;
+}
+
+.article-content pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
 }
 
 /* Scroll container with visible but subtle scrollbar */
