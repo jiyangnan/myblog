@@ -6,15 +6,16 @@ import { Analytics } from '@vercel/analytics/react';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://next-mdx-blog.vercel.app'),
+  metadataBase: new URL('https://arieswarrior.vercel.app'),
   alternates: {
     canonical: '/'
   },
   title: {
-    default: 'John Smith',
-    template: '%s | John Smith'
+    default: '白羊武士弗拉明戈的修道场',
+    template: '%s | 白羊武士弗拉明戈的修道场'
   },
-  description: 'My portfolio, blog, and personal website.'
+  description:
+    '超级个体，大辰教育合作 AI 讲师。深度 Claude code，Codex，Gemini 和 n8n 用户，出海产品持续构建。'
 };
 
 export default function RootLayout({
@@ -39,10 +40,7 @@ export default function RootLayout({
 
 function Footer() {
   const links = [
-    { name: '@johnsmith', url: 'https://x.com/johnsmith' },
-    { name: 'youtube', url: 'https://www.youtube.com/@johnsmith' },
-    { name: 'linkedin', url: 'https://www.linkedin.com/in/johnsmith' },
-    { name: 'github', url: 'https://github.com/johnsmith' }
+    { name: '@Aries_warrior_f', url: 'https://x.com/Aries_warrior_f' }
   ];
 
   return (
