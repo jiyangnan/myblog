@@ -1,7 +1,8 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-family-sans: 'Inter', sans-serif;
+  --font-family-sans: var(--font-inter), 'Inter', sans-serif;
+  --font-family-serif: var(--font-serif), 'Noto Serif SC', serif;
 }
 
 :root {
@@ -110,4 +111,52 @@ table {
   overflow-x: auto;
   white-space: nowrap;
   text-align: left;
+}
+
+/* Scroll container with visible but subtle scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.no-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.no-scrollbar::-webkit-scrollbar-thumb {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.no-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+}
+
+/* Card hover */
+.blog-card {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.blog-card:hover {
+  transform: translateY(-2px);
+  border-color: #e5e7eb;
+}
+
+/* Social mini cards */
+.social-mini-box {
+  filter: grayscale(1);
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+.social-mini-box:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Bottom mask for scroll area */
+.scroll-mask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, #fcfcfc 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
 }
