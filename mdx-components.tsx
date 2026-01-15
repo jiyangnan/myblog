@@ -9,58 +9,107 @@ type ListItemProps = ComponentPropsWithoutRef<'li'>;
 type AnchorProps = ComponentPropsWithoutRef<'a'>;
 type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
 
+function mergeClassName(
+  baseClassName: string,
+  className?: string
+): string {
+  return [baseClassName, className].filter(Boolean).join(' ');
+}
+
 const components = {
-  h1: (props: HeadingProps) => (
-    <h1 className="font-medium pt-12 mb-0" {...props} />
+  h1: ({ className, ...props }: HeadingProps) => (
+    <h1
+      className={mergeClassName(
+        'font-serif text-4xl md:text-5xl tracking-tight text-zinc-900 pt-10 mb-6',
+        className
+      )}
+      {...props}
+    />
   ),
-  h2: (props: HeadingProps) => (
+  h2: ({ className, ...props }: HeadingProps) => (
     <h2
-      className="text-gray-800 dark:text-zinc-200 font-medium mt-8 mb-3"
+      className={mergeClassName(
+        'text-2xl md:text-3xl font-serif text-zinc-900 mt-10 mb-4',
+        className
+      )}
       {...props}
     />
   ),
-  h3: (props: HeadingProps) => (
+  h3: ({ className, ...props }: HeadingProps) => (
     <h3
-      className="text-gray-800 dark:text-zinc-200 font-medium mt-8 mb-3"
+      className={mergeClassName(
+        'text-xl md:text-2xl font-serif text-zinc-900 mt-8 mb-3',
+        className
+      )}
       {...props}
     />
   ),
-  h4: (props: HeadingProps) => <h4 className="font-medium" {...props} />,
-  p: (props: ParagraphProps) => (
-    <p className="text-gray-800 dark:text-zinc-300 leading-snug" {...props} />
+  h4: ({ className, ...props }: HeadingProps) => (
+    <h4
+      className={mergeClassName(
+        'text-lg font-serif text-zinc-900 mt-6 mb-2',
+        className
+      )}
+      {...props}
+    />
   ),
-  ol: (props: ListProps) => (
+  p: ({ className, ...props }: ParagraphProps) => (
+    <p
+      className={mergeClassName(
+        'text-zinc-600 leading-relaxed text-lg',
+        className
+      )}
+      {...props}
+    />
+  ),
+  ol: ({ className, ...props }: ListProps) => (
     <ol
-      className="text-gray-800 dark:text-zinc-300 list-decimal pl-5 space-y-2"
+      className={mergeClassName(
+        'text-zinc-600 text-lg list-decimal pl-6 space-y-2',
+        className
+      )}
       {...props}
     />
   ),
-  ul: (props: ListProps) => (
+  ul: ({ className, ...props }: ListProps) => (
     <ul
-      className="text-gray-800 dark:text-zinc-300 list-disc pl-5 space-y-1"
+      className={mergeClassName(
+        'text-zinc-600 text-lg list-disc pl-6 space-y-2',
+        className
+      )}
       {...props}
     />
   ),
-  li: (props: ListItemProps) => <li className="pl-1" {...props} />,
-  em: (props: ComponentPropsWithoutRef<'em'>) => (
-    <em className="font-medium" {...props} />
+  li: ({ className, ...props }: ListItemProps) => (
+    <li className={mergeClassName('pl-1', className)} {...props} />
   ),
-  strong: (props: ComponentPropsWithoutRef<'strong'>) => (
-    <strong className="font-medium" {...props} />
+  em: ({ className, ...props }: ComponentPropsWithoutRef<'em'>) => (
+    <em className={mergeClassName('font-medium', className)} {...props} />
   ),
-  a: ({ href, children, ...props }: AnchorProps) => {
-    const className =
-      'text-blue-500 hover:text-blue-700 dark:text-gray-400 hover:dark:text-gray-300 dark:underline dark:underline-offset-2 dark:decoration-gray-800';
+  strong: ({ className, ...props }: ComponentPropsWithoutRef<'strong'>) => (
+    <strong className={mergeClassName('font-medium', className)} {...props} />
+  ),
+  a: ({ href, children, className, ...props }: AnchorProps) => {
+    const baseClassName =
+      'text-amber-700 hover:text-amber-900 underline underline-offset-4 decoration-amber-200';
     if (href?.startsWith('/')) {
       return (
-        <Link href={href} className={className} {...props}>
+        <Link
+          href={href}
+          className={mergeClassName(baseClassName, className)}
+          {...props}
+        >
           {children}
         </Link>
       );
     }
     if (href?.startsWith('#')) {
       return (
-        <a href={href} className={className} {...props}>
+        <a
+          href={href}
+          className={mergeClassName(baseClassName, className)}
+          {...props}
+        >
           {children}
         </a>
       );
@@ -70,7 +119,7 @@ const components = {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={className}
+        className={mergeClassName(baseClassName, className)}
         {...props}
       >
         {children}
@@ -81,6 +130,15 @@ const components = {
     const codeHTML = highlight(children as string);
     return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
   },
+  img: ({ className, ...props }: ComponentPropsWithoutRef<'img'>) => (
+    <img
+      className={mergeClassName(
+        'rounded-2xl border border-zinc-100 shadow-sm my-6',
+        className
+      )}
+      {...props}
+    />
+  ),
   Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
     <table>
       <thead>
@@ -101,9 +159,12 @@ const components = {
       </tbody>
     </table>
   ),
-  blockquote: (props: BlockquoteProps) => (
+  blockquote: ({ className, ...props }: BlockquoteProps) => (
     <blockquote
-      className="ml-[0.075em] border-l-3 border-gray-300 pl-4 text-gray-700 dark:border-zinc-600 dark:text-zinc-300"
+      className={mergeClassName(
+        'ml-[0.075em] border-l-4 border-amber-200 pl-6 text-zinc-500 italic text-lg',
+        className
+      )}
       {...props}
     />
   ),
