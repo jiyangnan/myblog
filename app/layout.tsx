@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/'
   },
+  icons: {
+    icon: '/favicon.png'
+  },
   title: {
     default: '白羊武士弗拉明戈的修道场',
     template: '%s | 白羊武士弗拉明戈的修道场'
