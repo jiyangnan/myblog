@@ -1,0 +1,88 @@
+export const metadata = {
+  title:
+    '使用 antigravity tools 提供多账号管理、协议转换和智能请求调度等功能，稳定、低成本地在 Claude Code、Codex 中使用 Gemini、Claude 系列模型',
+  alternates: {
+    canonical: '/n/7'
+  }
+};
+
+# 使用 antigravity tools 提供多账号管理、协议转换和智能请求调度等功能，稳定、低成本地在 Claude Code、Codex 中使用 Gemini、Claude 系列模型
+
+<div className="article-date">2026.01.21</div>
+
+### 1. 🎛️ 智能账号仪表盘 (Smart Dashboard)
+
+- **全局实时监控**: 一眼洞察所有账号的健康状况，包括 Gemini Pro、Gemini Flash、Claude 以及 Gemini 绘图的 **平均剩余配额**。
+- **最佳账号推荐 (Smart Recommendation)**: 系统会根据当前所有账号的配额冗余度，实时算法筛选并推荐“最佳账号”，支持 **一键切换**。
+- **活跃账号快照**: 直观显示当前活跃账号的具体配额百分比及最后同步时间。
+
+### 2. 🔐 强大的账号管家 (Account Management)
+
+- **OAuth 2.0 授权（自动/手动）**: 添加账号时会提前生成可复制的授权链接，支持在任意浏览器完成授权；回调成功后应用会自动完成并保存（必要时可点击“我已授权，继续”手动收尾）。
+- **多维度导入**: 支持单条 Token 录入、JSON 批量导入（如来自其他工具的备份），以及从 V1 旧版本数据库自动热迁移。
+- **网关级视图**: 支持“列表”与“网格”双视图切换。提供 403 封禁检测，自动标注并跳过权限异常的账号。
+
+### 3. 🔌 协议转换与中继 (API Proxy)
+
+- **全协议适配 (Multi-Sink)**:
+  - **OpenAI 格式**: 提供 `/v1/chat/completions` 端点，兼容 99% 的现有 AI 应用。
+  - **Anthropic 格式**: 提供原生 `/v1/messages` 接口，支持 **Claude Code CLI** 的全功能（如思思维链、系统提示词）。
+  - **Gemini 格式**: 支持 Google 官方 SDK 直接调用。
+- **智能状态自愈**: 当请求遇到 `429 (Too Many Requests)` 或 `401 (Expire)` 时，后端会毫秒级触发 **自动重试与静默轮换**，确保业务不中断。
+
+### 4. 🔀 模型路由中心 (Model Router)
+
+- **系列化映射**: 您可以将复杂的原始模型 ID 归类到“规格家族”（如将所有 GPT-4 请求统一路由到 `gemini-3-pro-high`）。
+- **专家级重定向**: 支持自定义正则表达式级模型映射，精准控制每一个请求的落地模型。
+- **智能分级路由 (Tiered Routing)**: 系统根据账号类型（Ultra/Pro/Free）和配额重置频率自动优先级排序，优先消耗高速重置账号，确保高频调用下的服务稳定性。
+- **后台任务静默降级**: 自动识别 Claude CLI 等工具生成的后台请求（如标题生成），智能重定向至 Flash 模型，保护高级模型配额不被浪费。
+
+### 5. 🎨 多模态与 Imagen 3 支持
+
+- **高级画质控制**: 支持通过 OpenAI `size`（如 `1024x1024`, `16:9`）参数自动映射到 Imagen 3 的相应规格。
+- **超强 Body 支持**: 后端支持高达 **100MB** 的 Payload，处理 4K 高清图识别绰绰有余。
+
+# 安装
+
+```
+# 1. 订阅本仓库的 Tap
+
+brew tap lbjlaq/antigravity-manager https://github.com/lbjlaq/Antigravity-Manager
+
+
+# 2. 安装应用
+
+brew install --cask antigravity-tools
+```
+
+# 配置账号
+
+打开 APP 就可以看到首页：
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260121141450989.png)
+
+1. 打开“Accounts / 账号” → “添加账号” → “OAuth”。
+
+2. 弹窗会在点击按钮前预生成授权链接；点击链接即可复制到系统剪贴板，然后用你希望的浏览器打开并完成授权。
+
+3. 授权完成后浏览器会打开本地回调页并显示“✅ 授权成功!”。
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260121141603264.png)
+
+4. 应用会自动继续完成授权并保存账号；如未自动完成，可点击“我已授权，继续”手动完成。
+
+然后就可以看到当前 AntiGravity 这个账号它所有模型的额度了！
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260121141905541.png)
+
+如果有多个账号的话，在对应账号的 Google 页面进行授权，重复以上动作即可。可以看到，目前两个账号都已经完成了授权动作。
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260121142529864.png)
+
+# 去玩
+
+然后来到 Claude Code 看一下：
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260121152927906.png)
+
+完美，我终于用上了 Claude Code 加自家模型，且再也不用担心被 anthropic 封号了！
