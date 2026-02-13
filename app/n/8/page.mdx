@@ -1,0 +1,201 @@
+export const metadata = {
+  title: '手把手搭一套 OpenClaw「能跑一周」的自动发推系统（保姆级教程）',
+  alternates: {
+    canonical: '/n/8'
+  }
+};
+
+# 手把手搭一套 OpenClaw「能跑一周」的自动发推系统（保姆级教程）
+
+<div className="article-date">2026.02.12</div>
+
+> 这篇不是“成功学复盘”，是**真能照着做**的操作指南。你会看到每一步要点、检查项、出错怎么办、怎么恢复，以及我们真实踩过的“CDP vs 浏览器插件”大坑。
+
+---
+
+## 0. 最终效果长什么样？
+
+- 每小时自动抓时间线 -> 写推文 -> 出图 -> 发布
+- 发布后自动把**推文链接**发给你预览
+- 配图是**纯白板手写风格**（无背景、无场景）
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260212183729269.png)
+
+**流程总览图：**
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260212183932651.png)
+
+---
+
+## 1. 你需要准备的东西
+
+- ✅ **OpenClaw 已运行**
+- ✅ **Chrome 已安装 OpenClaw Relay 插件**
+- ✅ **已登录 X（Twitter）账号**
+- ✅ **Gemini API Key 已配置**（用于 Nano Banana 出图）
+
+> 如果这些都没有，请先告诉我，我可以一步步带你装。
+
+---
+
+## 2. 第一次连接（非常关键）
+
+### ✅ 正确操作顺序
+
+1. 打开 Chrome -> 进入 `https://x.com/home`
+2. 点击浏览器工具栏上的 **OpenClaw Relay** 图标
+3. 确认图标徽标显示 **ON**（表示已连接）
+
+**判定标准**：
+
+- 没亮 -> 系统无法发推
+- 亮了 -> 才允许自动流程继续
+
+**连接流程图：**
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260212183944941.png)
+
+---
+
+## 3. 大坑复盘：浏览器插件 vs CDP
+
+我们真实走过一圈“换方案 -> 折腾 -> 回退”。
+
+### 方案 A：浏览器插件（Relay）
+
+**优点**：
+
+- 最稳定、最贴近真实用户操作
+- 不需要额外启动参数
+
+**缺点**：
+
+- 需要人工点亮 Relay
+- 连接偶尔会断
+
+### 方案 B：CDP（远程调试端口）
+
+**尝试原因**：
+
+- 想无人值守，不依赖人工点 Relay
+
+**踩坑点**：
+
+- 需要 `--remote-debugging-port=9222` 启动 Chrome
+- 容易触发登录异常/风控
+- 稳定性不如 Relay，反复“登录要求”
+
+**最终结论**：
+
+👉 **回归插件模式**（稳定优先，人工点亮可接受）
+
+**方案对比图：**
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260212183959984.png)
+
+> 经验：自动化里最重要的是“可持续交付”，不是“完全无人值守”。
+
+---
+
+## 4. 配图风格设置（纯白板）
+
+我们最终锁定的风格是：
+
+- **画面全是白板**
+- **只有手写文字**
+- **没有草地/天空/桌面/人物**
+
+标准提示词：
+
+```text
+full-frame whiteboard surface, fills entire image edge-to-edge, pure white background,
+handwritten marker text only, no background, no scenery, no objects, no people, no hands,
+no desks, no room, no sky, no trees, no shadows, no texture; just whiteboard with text
+and simple arrows/bullets
+```
+
+**规则示意图：**
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260212184013182.png)
+
+> 这条已经写进系统配置，后续发推都默认执行。
+
+---
+
+## 5. 正常发推流程长什么样？
+
+每次发推会自动跑以下流程：
+
+1. **抓时间线** -> 取最近 10-20 条
+2. **写推文** -> 按“先说看到什么，再给可执行方案”
+3. **生成白板图** -> Nano Banana 出图
+4. **自动发布** -> 发布后自动校验
+5. **返回链接** -> 发给你预览
+
+**标准流程图：**
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260212184034710.png)
+
+---
+
+## 6. 常见错误与解决办法（最实用）
+
+### ❌ 情况 A：发推卡住，提示 gateway 不可达
+
+**解决方法：**
+
+1. OpenClaw 菜单栏 -> Gateway -> **Stop -> Start**
+2. 回到 Chrome -> 确保 Relay 仍 ON
+3. 再次重试
+
+### ❌ 情况 B：提示 Relay 未连接
+
+**解决方法：**
+
+- 打开 x.com -> 点 Relay -> 徽标 ON
+
+### ❌ 情况 C：白板图出现草地/天空
+
+**原因**：脚本里曾遗留默认场景提示词
+
+**解决方法**：已修复，并加“严格遵循提示词”强约束
+
+### ❌ 情况 D：推文太长被截断
+
+**解决方法：**
+
+- 要么缩短
+- 要么发线程（可自动分线程）
+
+**排障决策树：**
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260212184043371.png)
+
+---
+
+## 7. 如何确认系统稳定？
+
+- ✅ 连续 3 小时无失败 -> 正常
+- ✅ 自动发推链接可稳定回传 -> 正常
+- ✅ 白板图无背景 -> 正常
+
+---
+
+## 8. 如果你想进一步优化
+
+- 增加“自动线程发布”
+- 增加“推文质量评分”
+- 增加“发布后互动监控”
+
+---
+
+## 最后一句话
+
+自动化最难的不是写脚本，而是**把流程变成稳定习惯**。
+只要 Relay + Gateway 这两件事稳定，系统就能持续运行。
+
+---
+
+> 如果觉得不错，随手点个赞、在看、转发三连吧，如果想第一时间收到推送，也可以给我个星标⭐ 我们，下次再见。
+>
+> 当然，欢迎加我个人微信：**aries_fighter**，一起**进群和其他同频道的朋友同频共振**，欢迎 AGI 时代的到来。也期待在今后的日子里能够与你有羁绊，这是种微妙的感觉。希望我的一些想法能对你有所帮助。
