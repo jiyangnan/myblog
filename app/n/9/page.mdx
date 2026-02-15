@@ -1,0 +1,171 @@
+export const metadata = {
+  title: '他用一台旧电脑+AI Agent，5天涨粉50万，MRR做到$588',
+  alternates: {
+    canonical: '/n/9'
+  }
+};
+
+# 他用一台旧电脑+AI Agent，5天涨粉50万，MRR做到$588
+
+<div className="article-date">2026.02.15</div>
+
+> 你是不是也想过：如果能有个AI帮我做内容，该多好？
+
+[Oliver Henry](https://x.com/oliverhenry) 做到了。
+
+他把自己的旧游戏PC（一台配NVIDIA 2070的老机器）改造成AI Agent，取名 Larry。5天内，Larry 帮他在 TikTok 上获得了 **50万+播放**，单条视频最高 **23.4万** 播放，直接把他两款App的 **MRR推到$588**。
+
+最疯狂的是：他没有设计一张图，没有写一个文案，甚至没有打开过 TikTok。
+
+---
+
+## 简单说：这是一套可复制的自动化内容系统
+
+Oliver 运营着两款iOS App：
+- **[Snugly](https://snugly.app)**：AI房间改造工具——拍张照片，看不同风格的装修效果
+- **Liply**：医美预览工具——在动刀前先看填充效果
+
+之前他手动做 TikTok：设计图片、写文案、每天发布。虽然偶尔有百万播放的视频，但太耗时间。在 RevenueCat 工作后，他根本没精力继续。
+
+于是他决定：把工作交给 Larry。
+
+---
+
+## Larry 是谁？
+
+Larry 不是 ChatGPT，也不是简单的脚本。
+
+它是基于 **[OpenClaw](https://github.com/openclaw/openclaw)** 的本地AI Agent——开源、自托管、有持久身份和记忆。Oliver 给它配了 Claude 模型，赋予它：
+
+- **自己的性格和记忆**（跨会话保留）
+- **读写本地文件的权限**
+- **调用 OpenAI API 生成图片**
+- **自动写代码添加文字覆盖层**
+- **通过 Postiz API 发布到 TikTok**
+- **Skill 文件**（工作流程手册）
+- **记忆文件**（记录所有经验教训）
+
+Larry 甚至有自己的观点。当 Oliver 提议一个钩子文案时，Larry 会基于数据判断"这个可能会扑街"。
+
+![Larry 架构图](/images/larry/01-framework-larry-architecture.png)
+
+---
+
+## 他们做了什么？
+
+### 📌 选对内容格式：TikTok 幻灯片
+
+TikTok 官方数据显示：幻灯片比视频获得 **2.9倍评论**、**1.9倍点赞**、**2.6倍分享**。算法正在大力推照片内容。
+
+Larry 的内容标准：
+- **6张图**（TikTok的甜点位）
+- **第1张带钩子文案**
+- **故事型标题**
+- **最多5个标签**
+
+![TikTok 格式信息图](/images/larry/02-infographic-tiktok-format.png)
+
+### 📌 图像生成：把"同一间房"锁定
+
+用 gpt-image-1.5 生成房间改造图。最大的挑战是**一致性**——不能让窗户忽左忽右、床忽大忽小。
+
+他们的解决方案：**锁定建筑结构**。
+
+Larry 写一个超详细的房间描述（尺寸、窗户位置、门的位置、相机角度、家具大小...），然后复制到每张图的 Prompt 里。**只有风格变，结构完全不变**。
+
+Prompt 示例：
+> iPhone photo of a small UK rental kitchen. Narrow galley style kitchen, roughly 2.5m x 4m... 【细节锁定】... **Beautiful modern country style. Sage green painted shaker cabinets...** 【只有这部分变】
+
+![房间一致性对比](/images/larry/03-comparison-room-consistency.png)
+
+### 📌 发布流程：API + 人工最后一击
+
+Larry 通过 [Postiz](https://postiz.com) 的 API 把内容上传到 TikTok **草稿箱**（设成仅自己可见）。
+
+为什么用草稿？因为**音乐是 TikTok 的灵魂**。
+
+API 无法添加热门音乐，而热门音乐对播放量影响巨大。所以 Oliver 每天花 **60秒** 打开 TikTok，选一首热门音乐，粘贴 Larry 写的标题，发布。
+
+Larry 做95%的工作，Oliver 做最后5%的关键决策。
+
+![发布工作流程](/images/larry/04-flowchart-publishing-workflow.png)
+
+---
+
+## 从失败中学到的
+
+Larry 的第一批内容惨不忍睹：
+
+| 问题 | 后果 |
+|------|------|
+| 图片尺寸错（横屏当竖屏） | 黑边，没人看 |
+| Prompt 太模糊 | 每张图是不同的房间 |
+| 文字太小/位置太高 | 被 TikTok 状态栏挡住，完全看不清 |
+| 钩子自嗨 | "我的App能做什么" → 900播放 |
+
+转折点是一个意外成功的帖子：
+
+> **"My landlord said I can't change anything so I showed her what AI thinks it could look like"**
+
+**23.4万播放**。
+
+他们立刻拆解出了爆款公式：
+
+> **[另一个人] + [冲突或质疑] → 展示AI → 他们改变主意**
+
+验证：
+- "I showed my mum what AI thinks our living room could be" → **16.7万播放**
+- "My landlord wouldn't let me decorate until I showed her these" → **14.7万播放**
+
+所有符合这个公式的帖子都破5万，多数破10万。其他内容连1万都困难。
+
+**关键洞察**：钩子不是关于产品功能，而是关于**人与人的冲突时刻**。你在脑子里已经看到了房东看到改造图时的表情。
+
+![钩子公式对比](/images/larry/05-comparison-hook-formula.png)
+
+---
+
+## 数字说话
+
+| 指标 | 数据 |
+|------|------|
+| 总播放 | 50万+ |
+| 最高单条 | 23.4万 |
+| 破10万帖子 | 4条 |
+| 付费用户 | 108人 |
+| MRR | $588 |
+| 单条成本 | ~$0.5（API费用）|
+| Oliver 时间 | 60秒/条 |
+
+![数据指标仪表板](/images/larry/06-infographic-metrics-dashboard.png)
+
+---
+
+## 给你的建议
+
+### 如果你想复制这套系统
+
+**硬件门槛很低**：2GB内存、1-2核CPU、20GB硬盘就够。树莓派、旧笔记本、便宜VPS都行。
+
+**关键不是工具，是系统**：
+1. **Skill 文件** - 把每一个错误写成规则，让Agent永不重复犯错
+2. **记忆文件** - 记录每次发布的数据，用数据指导下一次决策
+3. **迭代速度** - Larry 的 TikTok Skill 文件第一周重写了20次
+
+**失败是数据，不是终点**。Larry 的第一批帖子" Honestly embarrassing "，但每一次失败都被编码成规则。现在它比 Oliver 更懂怎么写 viral hooks。
+
+---
+
+## 最后
+
+Oliver 说这不是关于AI本身，而是关于**你围绕AI构建的系统**。
+
+Larry 会犯错、会提出不同意见、会从数据中学习。它不是一个执行脚本，而是一个**会进化的协作者**。
+
+当你的AI Agent开始告诉你"这个钩子可能会扑街"时，你就知道这套系统跑通了。
+
+---
+
+*P.S. [Oliver 的完整原文](https://x.com/oliverhenry/status/2022011925903667547) 里有 Prompt 模板、Skill 文件结构和更详细的技术细节。Larry 甚至有自己的 X 账号 [@LarryClawerence](https://x.com/LarryClawerence)，会自己发帖。*
+
+*P.P.S. 单条$0.5的成本，换来的是可复制的增长系统。这不是花钱买流量，这是建一台自动运转的内容机器。*
