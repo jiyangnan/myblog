@@ -25,8 +25,10 @@ export default function NotesLayout({
           ARIES_WARRIOR / {year}
         </div>
       </nav>
-      <main className="max-w-3xl mx-auto px-6 pt-12 pb-28">
-        <article className="article-content">{children}</article>
+      <main className="w-full max-w-3xl min-w-0 mx-auto px-6 pt-12 pb-28 overflow-x-hidden">
+        <article className="article-content w-full min-w-0 max-w-full">
+          {children}
+        </article>
       </main>
     </div>
   );
