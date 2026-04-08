@@ -1,0 +1,316 @@
+export const metadata = {
+  title: 'Openclaw 过时了？一夜之间AI圈追捧的Hermes到底是个什么（附安装教程）',
+  alternates: {
+    canonical: '/n/15'
+  }
+};
+
+# Openclaw 过时了？一夜之间 AI 圈追捧的 Hermes 到底是个什么（文末附安装教程）
+
+<div className="article-date">2026.04.08</div>
+
+> Hermes Agent 一夜之间收获了 35,000+ star，很多人在问：它和 OpenClaw 到底有什么区别？OpenClaw 是不是过时了？
+
+---
+
+最近，Nous Research 开源的 **Hermes Agent** 在 AI 圈刷屏了。这个打着 "The agent that grows with you"（与你共同成长的 Agent）旗号的项目，一夜之间收获了大量的关注。短短几天之内便斩获了 **35,000+** 的 star。而且趋势还在快速上涨。
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408220224914.png)
+
+很多人在问：它和我们熟悉的 OpenClaw 到底有什么区别？OpenClaw 是不是过时了？
+
+今天我就来详细拆解这两个项目，帮你搞清楚它们各自的定位和适用场景。
+
+## 先搞清楚：Hermes Agent 是什么？
+
+Hermes Agent 是 Nous Research（就是训练 Hermes 系列模型的那个团队）开源的一个 AI Agent 框架。它的核心卖点是**自我学习闭环**——用得越多，它越懂你。
+
+具体来说，它有这些关键能力：
+
+- **自动创建 Skill**：完成复杂任务后，自动把经验沉淀为可复用的 Skill
+- **跨会话记忆**：用 FTS5 搜索历史对话，LLM 做摘要，跨会话调用过去的经验
+- **用户画像建模**：支持通过 Honcho 等外部插件实现跨会话用户理解（注：Honcho 为外部插件，非内置功能）
+- **多平台接入**：Telegram、Discord、Slack、WhatsApp、Signal、Email、SMS、Mattermost、Matrix、**DingTalk、飞书/Lark、企业微信**，还有完整的终端 TUI
+- **模型无关**：支持 Nous Portal、OpenRouter（200+ 模型）、OpenAI、Anthropic、Kimi/Moonshot、MiniMax 等，一条命令切换
+- **研究就绪**：批量 trajectory 生成、Atropos RL 环境，可以用来训练 tool-calling 模型
+- **部署灵活**：本地、Docker、SSH、Daytona、Singularity、Modal（serverless），5 美元的 VPS 就能跑
+
+一句话总结：**Hermes 是一个会自我进化的 AI Agent，强调从经验中学习的能力。**
+
+## 再来看看 OpenClaw
+
+OpenClaw（前身是 Peter Steinberger 等人维护的项目）是当前最成熟的开源个人 AI 助手方案之一。它的口号是 "The lobster way"（龙虾之道），核心理念是**无处不在**。
+
+OpenClaw 的核心能力：
+
+- **23+ 渠道全覆盖**：WhatsApp、Telegram、Slack、Discord、iMessage、Teams、Matrix、WeChat、LINE、Feishu、IRC、Nostr 等等
+- **原生 App 生态**：macOS 菜单栏 App、iOS App、Android App，都有原生节点能力
+- **语音交互**：Voice Wake + Talk Mode，支持 macOS/iOS/Android
+- **浏览器控制**：内置 Chrome/Chromium CDP 控制
+- **可视化工作空间**：A2UI Canvas，Agent 可以推送可视化界面给你
+- **成熟的社区**：大量贡献者，生态完善
+
+一句话总结：**OpenClaw 是一个无处不在的个人助手，强调全平台覆盖（23+ 渠道）。**
+
+## 正面对比：谁更适合你？
+
+为了更直观，我把两者放在一张表里：
+
+| 维度 | Hermes Agent | OpenClaw |
+|---|---|---|
+| **核心定位** | 自我进化的开发型 Agent | 全平台个人 AI 助手 |
+| **语言栈** | Python | Node.js / TypeScript |
+| **学习/记忆** | 闭环学习：自动 Skill 生成、FTS5 会话搜索、Honcho 用户建模 | 有 Skill + Memory 系统，但学习闭环不是核心卖点 |
+| **渠道数量** | 13+ 个（Telegram、Discord、Slack、WhatsApp、Signal、Email、SMS、Mattermost、Matrix、DingTalk、飞书、企业微信、Home Assistant、Webhook） | 23+ 个（含 iMessage、个人微信、LINE、Teams 等） |
+| **原生 App** | 终端 TUI | macOS 菜单栏 + iOS/Android 原生 |
+| **语音交互** | Voice Mode（TTS 回复 + 语音转录 + Discord 语音频道对话） | Voice Wake + Talk Mode（macOS/iOS/Android） |
+| **部署方式** | 本地 / Docker / SSH / Daytona / Modal / Singularity（偏 serverless） | 本地 / Docker / 远程 Linux（偏自托管） |
+| **浏览器控制** | 通用工具集 | 内置 Chrome/Chromium CDP 控制 |
+| **可视化** | 无 | A2UI Canvas 可视化工作空间 |
+| **研究能力** | 批量 trajectory 生成、Atropos RL 环境 | 无 |
+| **定时任务** | 内置 cron | 内置 cron + webhook + Gmail Pub/Sub |
+| **模型切换** | 一条命令切换，模型无关 | 模型无关，支持 OAuth 认证轮换 + failover |
+| **社区成熟度** | 新项目，增长迅速（35,000+ star） | 成熟，350,000+ star |
+
+## 七个维度深度对比
+
+光看表面功能还不够，我深入研究了两个项目的架构和设计理念，从 7 个维度做了对比：
+
+### 1. 记忆系统
+
+| | Hermes | OpenClaw |
+|---|---|---|
+| 短期记忆 | MEMORY.md（2200字符上限）+ USER.md（1375字符） | MEMORY.md + USER.md（无字数限制） |
+| 全文搜索 | ✅ SQLite FTS5 跨 session 搜索 | ❌ 无 |
+| LLM 摘要 | ✅ 搜索结果用 LLM 自动摘要 | ❌ 无 |
+| 用户建模 | ✅ 通过 Honcho 等外部插件支持 | ❌ 无 |
+| 精简机制 | ✅ 字数上限强制压缩替换 | ❌ 容易无限膨胀 |
+
+**Hermes 胜出。** 它的记忆系统更精细——有字数上限强制精简、FTS5 全文搜索、用户画像建模。OpenClaw 的记忆更自由但缺乏管理机制。
+
+### 2. Skill 系统
+
+| | Hermes | OpenClaw |
+|---|---|---|
+| 格式 | SKILL.md（YAML frontmatter + 结构化） | SKILL.md（自由格式） |
+| 加载方式 | 渐进式（L0 列表→L1 全文→L2 子文件） | 启动时扫描 |
+| **自动创建** | ✅ 复杂任务后自动生成 Skill | ❌ 人工编写 |
+| **自我改进** | ✅ 使用中发现问题自动修正 | ❌ 无 |
+| 条件激活 | ✅ 按平台/工具可用性自动切换 | ❌ 无 |
+| Skill Hub | agentskills.io（开放标准） | ClawHub |
+
+**Hermes 胜出。** Agent 能自动创建和改进 skill、渐进式加载省 token、条件激活智能切换。这是 Hermes 最大的差异化能力。
+
+### 3. 工具系统
+
+| | Hermes | OpenClaw |
+|---|---|---|
+| 工具数量 | 47 工具 + 18 toolsets | 30+ 工具 |
+| 浏览器工具 | browser_navigate / browser_snapshot / browser_vision 等 | 内置 Chrome/Chromium CDP 控制 |
+| 终端后端 | 6 种（本地/Docker/SSH/Daytona/Singularity/Modal） | 本地 exec |
+| MCP 支持 | ✅ | ✅ |
+| 工具分组 | Toolset 预设（按场景启用不同组合） | 按需加载 |
+
+**Hermes 胜出。** 工具更丰富、后端选择更多、toolset 分组更灵活。
+
+### 4. 运行环境
+
+|                | Hermes                       | OpenClaw  |
+| -------------- | ---------------------------- | --------- |
+| 本地运行           | ✅                            | ✅         |
+| Docker         | ✅                            | ✅         |
+| SSH 远程         | ✅                            | ✅         |
+| **Serverless** | ✅ Daytona / Modal（闲置休眠，按需唤醒） | ❌         |
+| GPU 集群         | ✅ Singularity                | ❌         |
+| 脱离笔记本          | ✅ Telegram 远程控制云 VM          | 需要一台机器一直跑 |
+
+**Hermes 胜出。** 特别是 Serverless 模式，闲置时几乎零成本，适合不想一直开着电脑的人。
+
+### 5. 多平台消息
+
+|        | Hermes                                           | OpenClaw                |
+| ------ | ------------------------------------------------ | ----------------------- |
+| 国际平台   | Telegram/Discord/Slack/WhatsApp/Signal/Email/SMS | 全覆盖                     |
+| 中国平台   | ✅ DingTalk、飞书、企业微信                               | ✅ 个人微信、飞书            |
+| 原生 App | 终端 TUI                                           | macOS 菜单栏 + iOS/Android |
+| 语音     | Voice Mode（TTS + 转录）                             | Voice Wake + Talk Mode  |
+
+**各有千秋。** OpenClaw 覆盖更广（特别是个人微信、LINE 等消费级平台），Hermes 在企业级平台（Slack、Mattermost）上更完善。
+
+### 6. 自我进化能力（核心差异）
+
+| | Hermes | OpenClaw |
+|---|---|---|
+| 自动创建 Skill | ✅ 复杂任务后自动生成 | ❌ |
+| Skill 自我改进 | ✅ 使用中自动修正 | ❌ |
+| 记忆自主管理 | ✅ 字数限制 + 压缩替换 | 半自动 |
+| 定期知识巩固 | ✅ 通过 skill_manage 自动沉淀经验 | ❌ |
+| RL 训练 | ✅ Atropos RL 用轨迹训练模型 | ❌ |
+
+**Hermes 碾压。** "The agent that grows with you" 不是口号——它有一套完整的自我进化闭环。
+
+### 7. OpenClaw 原生 vs DIY：灵活性的证明
+
+说实话，光比原生能力，Hermes 在 Agent 核心能力（记忆、学习、工具、部署）上全面领先。但 OpenClaw 有一个被低估的优势：**DIY 灵活性**。
+
+下面这张表，标注了哪些是 OpenClaw 原生自带的，哪些是我们自己叠上去的：
+
+| 能力 | 原生/DIY | 说明 |
+|------|---------|------|
+| **个人微信接入** | 🟢 原生 | Hermes 只支持企业微信 |
+| **消费级原生 App** | 🟢 原生 | iOS/Android/macOS 菜单栏 |
+| **A2UI Canvas** | 🟢 原生 | Agent 推送可视化界面 |
+| **350,000+ star 生态** | 🟢 原生 | 社区 skill/插件/集成方案丰富 |
+| **零成本浏览器自动化** | 🟡 DIY | PinchTab/OpenCLI（我们自己接的） |
+| **深度知识库体系** | 🟡 DIY | KB 2.0：Ingest/Query/Lint/Crosslink（我们自己设计的） |
+| **内容发布流水线** | 🟡 DIY | 公众号/X Articles/Twitter 一键发布（我们自己搭的） |
+| **多 Agent 分身架构** | 🟡 DIY | main/growth/invest 三分身（我们自己配的） |
+| **血肉模式** | 🟡 DIY | 主动思考、梦境思考、自主探索（我们自己写的脚本） |
+
+**这说明什么？** OpenClaw 虽然原生能力没有 Hermes 那么完善，但它的架构足够灵活，允许你根据自己的需求深度定制。我们花了两个月，就在 OpenClaw 上搭出了 Hermes 原生都没有的知识库管理体系。
+
+**反过来看 Hermes**：它的"自动创建 Skill"、"记忆精简"这些能力是内置的，开箱即用，但如果你想定制一个"自动抓取微信文章→质量打分→交叉链接→周检健康"的知识库流水线——目前做不到，因为它没有 OpenClaw 那样的灵活定制能力。
+
+---
+
+## 三个关键差异（总结版）
+
+### 1. "学习" vs "覆盖"
+
+这是最核心的区别。
+
+**Hermes** 把"学习"做成了核心卖点。它不仅帮你完成任务，还会从每次交互中学习——自动创建 Skill、建立用户画像、跨会话搜索历史经验。用得越久，它越像一个"懂你的助手"。
+
+**OpenClaw** 则把"覆盖面"做到了极致。22+ 个渠道、原生 App、语音交互——它追求的是"在任何地方都能找到它"。
+
+### 2. "开发者导向" vs "全民助手"
+
+Hermes 明显更偏开发者。它的终端 TUI、RL 训练环境、trajectory 生成，都是面向技术用户的。
+
+OpenClaw 更像"全民助手"。macOS 菜单栏 App、iOS/Android App、语音唤醒，普通用户也能上手。
+
+### 3. "研究基因" vs "产品基因"
+
+Hermes 背后的 Nous Research 本身就是做模型训练的，所以 Hermes 天然带有研究属性——它不仅是个 Agent，还是个训练 Agent 的工具。
+
+OpenClaw 则从一开始就是产品驱动的。从 onboarding wizard 到 Control UI 到原生 App，处处体现产品思维。
+
+## 所以，OpenClaw 过时了吗？
+
+**没有。但确实被提醒了。**
+
+说几个大实话：
+
+**1. Hermes 在 Agent 核心能力上确实更强。** 自我进化闭环、记忆管理、工具系统——这些都是我们 OpenClaw 用户应该羡慕的。
+
+**2. OpenClaw 的优势不在"功能多"，而在"能折腾"。** 35万 star 的生态、灵活的架构、丰富的 skill 体系，让它成为一个极好的"底座"——你可以在上面搭出任何你想要的东西。
+
+**3. 两者的路线不同：**
+
+- **Hermes**：给你一个**开箱即用**的聪明 Agent，你用它就行了
+- **OpenClaw**：给你一个**空白的画布**，你想要什么自己画
+
+如果你想要一个"装上就能用"的 Agent，Hermes 是更好的选择。如果你愿意花时间定制一个"完全按你需求生长"的 Agent，OpenClaw 的灵活性更有价值。
+
+## 我的判断
+
+从趋势上看，Hermes 的"自我学习闭环"理念确实代表了一个重要方向——Agent 不能只是执行工具，还得能从经验中成长。这一点比 OpenClaw 走得更远。
+
+但"开箱即用"和"灵活定制"不矛盾。最好的状态是：**用 OpenClaw 做底座，把 Hermes 的好理念搬过来。**
+
+事实上，我们已经这么做了——我们的 KB 2.0 知识库管理体系，就是借鉴了 Karpathy 的 LLM Wiki 思路，在 OpenClaw 上落地实现的。Hermes 的"自动创建 Skill"和"记忆精简"，同样可以借鉴过来。
+
+**两个项目都值得关注，但我们不急着换。** 好的想法不分阵营，能用的就拿来用。
+
+## 对我们 OpenClaw 用户的启示
+
+Hermes 给我们上了两课：
+
+**1. Agent 应该能从经验中学习，而不是只靠人写规则**
+
+现在我们的 skill 全靠人工编写。如果 Agent 在完成复杂任务后，能自动总结经验、生成可复用的 skill，效率会大幅提升。这是我们接下来要做的事。
+
+**2. 记忆不能无限膨胀，需要精简机制**
+
+我们的 MEMORY.md 目前没有字数限制，用久了容易变成一坨乱麻。Hermes 的"字数上限 + 压缩替换"机制值得借鉴——强制 Agent 定期精简记忆，保留最重要的信息，删除过时的内容。
+
+**3. 灵活定制是 OpenClaw 最大的护城河**
+
+别被 Hermes 的原生能力吓到。OpenClaw 的价值不在于"开箱有什么"，而在于"你能往上加什么"。我们的 KB 2.0、内容发布流水线、多 Agent 分身——这些全是自己搭的，Hermes 原生都没有。
+
+**好想法不分阵营，能用的就拿来用。这就是 DIY 的意义。**
+
+# Hermes 怎么用
+
+## 安装
+
+\`\`\`bash
+curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+\`\`\`
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408212644607.png)
+
+安装完成后会自动启动向导：会询问是否从 openclaw 导入包括：settings、memories、skills、API keys。输入"Y"同意，并继续。
+
+Tips：如果你当前只想安装，并愿意经过一段时间验证它的记忆能力，可以选择"N"。以后如果想直接从 Openclaw 导入记忆可以用一键迁移命令：
+
+\`\`\`bash
+hermes claw migrate
+\`\`\`
+
+## 配置
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408213212647.png)
+
+新手建议选照官方的 Quick setup。
+
+然后会让配置模型，选择对应的模型供应商之后选择对应模型即可。
+
+下一步就是配置消息渠道，默认选择了 telegram 和 discord。
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408213508190.png)
+
+**1. telegram**：由于之前配置过 openclaw，所以它自动检测到了，但由于安全，需要输入自己的 telegram 用户 ID。
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408213629025.png)
+
+获取用户 ID 方法：
+
+\`\`\`bash
+1. Message @userinfobot on Telegram. #在 telegram @userinfobot 发消息
+
+2. It will reply with your numeric ID (e.g., 123456789)
+\`\`\`
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408213938931.png)
+
+然后粘贴进 terminal 进行配置。
+
+**2. Discord 配置**
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408214126983.png)
+
+同样需要获取自己的 Discord ID 填写在这里。直接在 Discord 点击自己头像，然后在如图地方复制用户 ID 即可。
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408214307807.png)
+
+之后会让用户选择默认的消息频道，可不填。
+
+最后一路回车即可。直到系统提示"Launch hermes chat now?"，输入"Y"确定。
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408214650273.png)
+
+恭喜你，进入了新的 Hermes 世界！
+
+![image.png](https://raw.githubusercontent.com/jiyangnan/picBed/main/img/20260408214829090.png)
+
+> 如果觉得不错，随手点个赞、在看、转发三连吧，如果想第一时间收到推送，也可以给我个星标⭐ 我们，下次再见。
+>
+>当然，欢迎加我个人微信：**baiyangwushi**，一起进**白羊武士的修炼道场**和其他同频道的朋友同频共振，欢迎 AGI 时代的到来。也期待在今后的日子里能够与你有羁绊，这是种微妙的感觉。希望我的一些想法能对你有所帮助。欢迎你的到来，修行者。
+
+---
+
+*参考资料：*
+- *Hermes Agent GitHub: https://github.com/NousResearch/hermes-agent*
+- *OpenClaw GitHub: https://github.com/openclaw/openclaw*
+- *Hermes 官方文档: https://hermes-agent.nousresearch.com/docs*
