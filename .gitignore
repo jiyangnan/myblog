@@ -40,3 +40,4 @@ article_demo2.html
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.gstack/
