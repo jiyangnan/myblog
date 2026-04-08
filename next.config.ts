@@ -8,6 +8,17 @@ export const sql = postgres(process.env.POSTGRES_URL!, {
 
 const nextConfig: NextConfig = {
   pageExtensions: ['mdx', 'ts', 'tsx'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'raw.githubusercontent.com',
+        port: '',
+        pathname: '/jiyangnan/picBed/**',
+      },
+    ],
+    unoptimized: false,
+  },
   async redirects() {
     if (!process.env.POSTGRES_URL) {
       return [];
@@ -30,7 +41,7 @@ const nextConfig: NextConfig = {
   experimental: {
     mdxRs: { mdxType: 'gfm' }
   }
- };
+};
 
 const withMDX = createMDX({});
 
